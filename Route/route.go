@@ -11,5 +11,8 @@ func InitRoutes() *mux.Router{
 	r.Use(middleware.Logger)
 	api:=r.PathPrefix("/api").Subrouter()
 	api.HandleFunc("/todos",controller.GetTodos).Methods("GET")
+	api.HandleFunc("/todos",controller.CreateTodo).Methods("POST")
+	api.HandleFunc("/todos/{id}", controller.UpdateTodo).Methods("PUT")
+	api.HandleFunc("/todos/{id}", controller.DeleteTodo).Methods("DELETE")
 	return  r
 }
