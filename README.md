@@ -18,28 +18,28 @@ Designed to be simple for beginners yet scalable for real-world use.
 ## 📁 Project Structure
 
 
-.
-├── Config/
-│   └── config.go   # Configuration
-├── controllers/
-│   └── todoController.go   # All handler logic (CRUD)
-├── database/
-│   ├── connection.go      # Connects to PostgreSQL
-│───migrations/
-│   └── migrate.go
-│───Schema/
-│   └── createTodoTable.go
-├── models/
-│   └── todo.go            # Structs for Todo
-├── validations/
-│   └── todoValidation.go  # Validation rules
-├── routes/
-│   └── routes.go          # Gorilla Mux route definitions
-├── main.go
-└── go.mod
+        .
+        ├── Config/
+        │   └── config.go   # Configuration
+        ├── controllers/
+        │   └── todoController.go   # All handler logic (CRUD)
+        ├── database/
+        │   ├── connection.go      # Connects to PostgreSQL
+        │───migrations/
+        │   └── migrate.go
+        │───Schema/
+        │   └── createTodoTable.go
+        ├── models/
+        │   └── todo.go            # Structs for Todo
+        ├── validations/
+        │   └── todoValidation.go  # Validation rules
+        ├── routes/
+        │   └── routes.go          # Gorilla Mux route definitions
+        ├── main.go
+        └── go.mod
 
 
-
+---
   ## ⚙️ Installation & Setup
 ### 1️⃣ Clone the repository  
         git clone https://github.com/Tola-lemma/golang_todo
@@ -108,7 +108,6 @@ Server starts on:
 | `GET`    | `/api/todos`      | Get all todos                    | —                                             |
 | `GET`    | `/api/todos/{id}` | Get todo by ID                   | —                                             |
 | `PUT`    | `/api/todos/{id}` | Update a todo (replace fields)   | `{ "title": "Buy bread", "completed": true }` |
-                      |
 | `DELETE` | `/api/todos/{id}` | Delete a todo                    | —                                             |
 
 ✅ Supports partial updates with optional fields.
