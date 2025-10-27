@@ -21,7 +21,7 @@ func GetTodos(w http.ResponseWriter, r *http.Request){
 	var todos []models.Todo
 	for rows.Next(){
 		var t models.Todo
-		if err:=rows.Scan(&t.ID,&t.Title,&t.Completed,&t.Completed); err!=nil{
+		if err:=rows.Scan(&t.ID,&t.Title,&t.Completed,&t.CreatedAt); err!=nil{
 			http.Error(w,err.Error(),http.StatusNotFound)
 			return
 		}
