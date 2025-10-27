@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	Database "github.com/Tola-lemma/golang_todo/Database"
@@ -56,23 +57,43 @@ func CreateTodo(w http.ResponseWriter, r *http.Request) {
 func UpdateTodo(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 
-	var input Validations.TodoInput
+	var input Validations.TodoUpdateInput
 	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
 		http.Error(w, "Invalid JSON body", http.StatusBadRequest)
 		return
 	}
 
-	if err := Validations.ValidateTodoInput(input); err != nil {
+	if err := Validations.ValidateTodoUpdateInput(input); err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
-	result, err := Database.DB.Exec("UPDATE todos SET title=$1 WHERE id=$2", input.Title, id)
+ //dynamic update
+ query :="UPDATE todos SET "
+ args :=[]any{}
+ argPos:=1
+ if input.Title !=nil{
+	query +=fmt.Sprintf("title=$%d,",argPos)
+	args=append(args, *input.Title)
+	argPos++
+ }
+ if input.Completed !=nil{
+	query +=fmt.Sprintf("completed=$%d,",argPos)
+	args=append(args, *input.Completed)
+	argPos++
+ }
+	//remove trailing comma
+	if len(args) ==0{
+		http.Error(w,"No fields to Update",http.StatusBadRequest)
+		return
+	}
+	query = query[:len(query)-1] //remove trailing comma
+	query +=fmt.Sprintf(" WHERE id=$%d",argPos)
+	args=append(args, id)
+    result, err := Database.DB.Exec(query, args...)
 	if err != nil {
 		http.Error(w, "Failed to update todo", http.StatusInternalServerError)
 		return
 	}
-
 	rowsAffected, _ := result.RowsAffected()
 	if rowsAffected == 0 {
 		http.Error(w, "Todo not found", http.StatusNotFound)
