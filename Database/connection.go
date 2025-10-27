@@ -5,26 +5,14 @@ import (
 	"fmt"
 	"log"
     _ "github.com/lib/pq"   
-	"github.com/spf13/viper"
+config "github.com/Tola-lemma/golang_todo/Config"
 )
 var DB *sql.DB
-func InitConfig() {
-	viper.SetConfigFile(".env")
-	viper.AutomaticEnv()
-	if err := viper.ReadInConfig(); err !=nil{
-		log.Printf("Config File not found: %v",err)
-	}
-}
 func InitDB(){
-	InitConfig()
+	cfg := config.AppConfig
 	connStr:=fmt.Sprintf(
-		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
-		viper.GetString("DB_HOST"),
-		viper.GetString("DB_PORT"),
-		viper.GetString("DB_USER"),
-		viper.GetString("DB_PASSWORD"),
-		viper.GetString("DB_NAME"),
-		viper.GetString("SSL_MODE"),
+	"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+		cfg.DBHost, cfg.DBPort, cfg.DBUser, cfg.DBPass, cfg.DBName, cfg.SSLMode,
 	)
 	var err error
 	DB, err = sql.Open("postgres",connStr)

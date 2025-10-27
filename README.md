@@ -22,6 +22,8 @@ Designed to be simple for beginners yet scalable for real-world use.
 
 
 .
+├── Config/
+│   └── config.go   # Configuration
 ├── controllers/
 │   └── todoController.go   # All handler logic (CRUD)
 ├── database/
@@ -110,7 +112,7 @@ Server starts on:
 | `GET`    | `/api/todos`      | Get all todos                    | —                                             |
 | `GET`    | `/api/todos/{id}` | Get todo by ID                   | —                                             |
 | `PUT`    | `/api/todos/{id}` | Update a todo (replace fields)   | `{ "title": "Buy bread", "completed": true }` |
-| `PATCH`  | `/api/todos/{id}` | Partial update (optional fields) | `{ "completed": true }`                       |
+                      |
 | `DELETE` | `/api/todos/{id}` | Delete a todo                    | —                                             |
 
 ✅ Supports partial updates with optional fields.
