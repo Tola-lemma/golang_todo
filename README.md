@@ -1,11 +1,8 @@
-
-```markdown
 # 📝 Go RESTful TODO API
 
 A clean, modular **TODO management REST API** built with Golang, **Gorilla Mux**, **PostgreSQL**, and **Viper** for configuration.  
 Designed to be simple for beginners yet scalable for real-world use.
 
----
 
 ## 🚀 Features
 
@@ -41,7 +38,6 @@ Designed to be simple for beginners yet scalable for real-world use.
 ├── main.go
 └── go.mod
 
-````
 
 
   ## ⚙️ Installation & Setup
